@@ -56,6 +56,13 @@ class HttpAnnotationResolver implements AnnotationResolver
         if (!$controller) {
             return [];
         }
+        
+        if(\is_array($controller)){
+            list($class,$method) = $controller;
+        }else{
+            $class = $controller;
+            $method = '__invoke';
+        }
 
         return $this->reader->getMethodAnnotations(new \ReflectionMethod($controller, '__invoke'));
     }
